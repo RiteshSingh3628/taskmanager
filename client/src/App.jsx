@@ -7,9 +7,11 @@ import Users from "./pages/Users"
 import Trash from "./pages/Trash"
 import TaskDetails from "./pages/TaskDetails"
 import {Toaster} from "sonner"
+import {useSelector} from 'react-redux'
+import Sidebar from './components/Sidebar'
 
 function Layout(){
-  const user = ""
+  const {user} = useSelector((state)=>state.auth);
 
   const location = useLocation()
   // if the user doesn't exist or exists , using ternary operator to hendal the situation
@@ -18,7 +20,7 @@ function Layout(){
     // if the user exists
     <div className='w-full h-screen flex flex-col md:flex-row'>
       <div className='w-1/5 h-screen bg-white sticky top-0 hidden md:block'>
-        {/* <Sidebar/> */}
+        <Sidebar/>
       </div>
       {/* <MobileSidebar/> */}
 
@@ -34,6 +36,13 @@ function Layout(){
     
   ) : (
     // if the user doesn't exist
+
+    /*state={{from: location}}: This prop allows you to pass state to the new route. 
+    Here, it passes the current location to the "/log-in" route. This can be useful for redirecting the user
+     back to the original page they were trying to access after they log in.
+    replace: This prop indicates that the navigation should replace the current entry in the history 
+    stack instead of adding a new one. This means that after the navigation, the user won't be able 
+    to go back to the previous page using the back button.*/
     <Navigate to="/log-in" state={{from: location}} replace/>
   )
 
